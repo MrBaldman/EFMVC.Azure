@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-namespace MvcRefApp.Web.Core.ActionFilters
+
+namespace EFMVC.Web.Core.ActionFilters
 {
-    public class AntiForgeryTokenFilterProvider : System.Web.Mvc.IFilterProvider
+    /// <summary>
+    /// Provides global cover for all controllers that take HTTP POSTs, by adding an anti forgery token.
+    /// If the view does not have one, the POST will fail.
+    /// </summary>
+    public class AntiForgeryTokenFilterProvider : IFilterProvider
     {
         public IEnumerable<Filter> GetFilters(ControllerContext controllerContext, ActionDescriptor actionDescriptor)
         {
-            List<Filter> result = new List<Filter>();
+            var result = new List<Filter>();
 
             string incomingVerb = controllerContext.HttpContext.Request.HttpMethod;
 
